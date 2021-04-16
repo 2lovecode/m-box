@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <el-page-header @back="goTool" title="工具" content="列表">
+      <el-page-header @back="goTool" title="工具" :content="getToolName">
       </el-page-header>
     </el-header>
     <el-main>
@@ -14,6 +14,11 @@ export default {
   name: 'tool-items',
   data: () => {
     return {}
+  },
+  computed: {
+    getToolName: function () {
+      return this.$store.getters.getToolName
+    }
   },
   methods: {
     goTool () {

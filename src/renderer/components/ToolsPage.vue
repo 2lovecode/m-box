@@ -7,11 +7,22 @@
     <el-main>
       <el-card>
         <div slot="header" class="clearfix">
-          <span>开发工具</span>
+          <span>开发</span>
         </div>
         <el-row>
           <el-col :span="4" v-for="(item, index) in devTools" :key="index">
-            <el-button plain @click="goToolItem(item.path)">{{ item.name }}</el-button>
+            <el-button plain @click="goToolItem(item.path, item.name)">{{ item.name }}</el-button>
+          </el-col>
+        </el-row>
+      </el-card>
+      <div style="height:2em;"></div>
+      <el-card>
+        <div slot="header" class="clearfix">
+          <span>办公</span>
+        </div>
+        <el-row>
+          <el-col :span="4" v-for="(item, index) in officeTools" :key="index">
+            <el-button plain @click="goToolItem(item.path, item.name)">{{ item.name }}</el-button>
           </el-col>
         </el-row>
       </el-card>
@@ -28,6 +39,12 @@ export default {
           name: '时间转换',
           path: '/tool-items/time-trans'
         }
+      ],
+      officeTools: [
+        {
+          name: '密码管理',
+          path: '/tool-items/pass-manage'
+        }
       ]
     }
   },
@@ -35,7 +52,9 @@ export default {
     goHome () {
       this.$router.push('/')
     },
-    goToolItem (path) {
+    goToolItem (path, toolName) {
+      // console.log(this.$store.dispatch)
+      this.$store.dispatch('changeToolName', toolName)
       this.$router.push(path)
     }
   }

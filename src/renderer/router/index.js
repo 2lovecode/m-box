@@ -20,6 +20,11 @@ export default new Router({
       component: require('@/components/ToolsPage').default
     },
     {
+      path: '/games',
+      name: 'games-page',
+      component: require('@/components/GamesPage').default
+    },
+    {
       path: '/tool-items',
       name: 'tool-items',
       component: require('@/components/ToolItems/ToolItemsPage').default,
@@ -27,6 +32,10 @@ export default new Router({
         {
           path: 'time-trans',
           component: require('@/components/ToolItems/TimeTransPage').default
+        },
+        {
+          path: 'pass-manage',
+          component: require('@/components/ToolItems/PassManagePage').default
         }
       ]
     }

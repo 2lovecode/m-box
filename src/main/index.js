@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow } from 'electron'
 
+import '../renderer/store'
 const Caculator = require('./caculator/index')
 
 /**
