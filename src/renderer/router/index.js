@@ -25,6 +25,17 @@ export default new Router({
       component: require('@/components/GamesPage').default
     },
     {
+      path: '/game-items',
+      name: 'game-items',
+      component: require('@/components/Games/GameItemsPage').default,
+      children: [
+        {
+          path: 'demo',
+          component: require('@/components/Games/Demo').default
+        }
+      ]
+    },
+    {
       path: '/tool-items',
       name: 'tool-items',
       component: require('@/components/ToolItems/ToolItemsPage').default,
