@@ -30,8 +30,6 @@
     name: 'home-page',
     data: () => {
       return {
-        defaultIndex: 0,
-        startPath: '/tools',
         modeMap: [
           {
             path: '/tools',
@@ -51,16 +49,29 @@
         ]
       }
     },
+    computed: {
+      defaultIndex: function () {
+        return this.$store.getters.getMode
+      },
+      startPath: function () {
+        var mode = 0
+        if (this.$store.getters.getMode !== undefined) {
+          mode = this.$store.getters.getMode
+        }
+
+        var path = this.modeMap[mode].path
+        if (path !== undefined && path !== '') {
+          return path
+        }
+        return this.modeMap[0].path
+      }
+    },
     methods: {
       open (link) {
         this.$electron.shell.openExternal(link)
       },
       modeChange (changeIndex) {
-        var path = this.modeMap[changeIndex].path
-        if (path !== undefined && path !== '') {
-          console.log(path)
-          this.startPath = path
-        }
+        this.$store.dispatch('changeMode', changeIndex)
       },
       start () {
         console.log(this.startPath)
