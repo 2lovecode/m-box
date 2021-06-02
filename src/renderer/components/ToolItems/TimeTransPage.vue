@@ -2,7 +2,15 @@
   <el-row>
     <el-col>
       <el-input v-model="input" placeholder="请输入内容"></el-input>
-      <el-button type="primary" @click="getM">立即创建</el-button>
+      <el-select v-model="timezone" filterable placeholder="请选择时区">
+        <el-option
+          v-for="(zone, idx) in zoneMap"
+          :key="idx"
+          :label="zone"
+          :value="idx">
+        </el-option>
+      </el-select>
+      <!-- <el-button type="primary" @click="getZoneMap">立即创建</el-button> -->
     </el-col>
   </el-row>
 </template>
@@ -13,17 +21,33 @@ export default {
   name: 'time-trans',
   data: () => {
     return {
-      input: moment().tz("America/Los_Angeles").format()
+      input: moment().tz("America/Los_Angeles").format(),
+      timezone: ""
     }
   },
+  computed: {
+    zoneMap: function () {
+      return this.getZoneMap()
+    },
+  },
   methods: {
-    getM: function() {
-      var citys = moment.tz.countries()
+    getZoneMap: function() {
+      var countries = moment.tz.countries()
+      var zones = {}
 
-      citys.forEach((ele, idx) => {
-        console.log(ele)
+      countries.forEach((ele, idx) => {
+        moment.tz.zonesForCountry(ele, true).forEach((e, i) => {
+
+          var str = ""
+          if (e.offset > 0) {
+            str = "GMT-"+e.offset/60
+          } else {
+            str = "GMT+"+e.offset/60*-1
+          }
+          zones[e.name] = e.name+"["+str+"]"
+        })
       })
-      // console.log(moment.tz.countries())
+      return zones
     }
   }
 }
