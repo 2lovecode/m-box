@@ -1,28 +1,47 @@
 <template>
-  <el-row>
-    <el-col>
-      <el-input v-model="input" placeholder="请输入内容"></el-input>
-      <el-select v-model="timezone" filterable placeholder="请选择时区">
-        <el-option
-          v-for="(zone, idx) in zoneMap"
-          :key="idx"
-          :label="zone"
-          :value="idx">
-        </el-option>
-      </el-select>
-      <!-- <el-button type="primary" @click="getZoneMap">立即创建</el-button> -->
-    </el-col>
-  </el-row>
+  <el-container>
+    <el-form :model="timetrans" label-width="6em" style="width:90%;">
+        <el-form-item label="选择时区">
+          <el-select v-model="timetrans.timezone" filterable placeholder="请选择时区" style="width:18em;">
+            <el-option
+              v-for="(zone, idx) in zoneMap"
+              :key="idx"
+              :label="zone.label"
+              :value="zone.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="转Unix时间戳">
+          <el-col :span="10">
+            <el-input v-model="timetrans.a"></el-input>
+          </el-col>
+          <el-col :span="3" :offset="1">
+            <el-button type="primary" icon="el-icon-edit"></el-button>
+          </el-col>
+          <el-col :span="10">
+            <el-input v-model="timetrans.b"></el-input>
+          </el-col>
+        </el-form-item>
+    </el-form>
+  </el-container>
 </template>
 <script>
 var moment = require('moment-timezone')
 
+class zoneObj {
+  value = ""
+  offset = 0
+  label = ""
+}
 export default {
   name: 'time-trans',
   data: () => {
     return {
-      input: moment().tz("America/Los_Angeles").format(),
-      timezone: ""
+      timetrans: {
+        a:"",
+        b:"",
+        timezone: "Asia/Shanghai"
+      }
     }
   },
   computed: {
@@ -33,19 +52,27 @@ export default {
   methods: {
     getZoneMap: function() {
       var countries = moment.tz.countries()
-      var zones = {}
+      var zones = []
 
       countries.forEach((ele, idx) => {
         moment.tz.zonesForCountry(ele, true).forEach((e, i) => {
+          var zo = new zoneObj
 
-          var str = ""
           if (e.offset > 0) {
-            str = "GMT-"+e.offset/60
+            zo.label = e.name+"(GMT - "+e.offset/60+")"
+          } else if (e.offset < 0) {
+            zo.label = e.name+"(GMT + "+e.offset/60*-1+")"
           } else {
-            str = "GMT+"+e.offset/60*-1
+            zo.label = e.name+"(GMT - 0)"
           }
-          zones[e.name] = e.name+"["+str+"]"
+
+          zo.value = e.name
+          zo.offset = e.offset
+          zones.push(zo)
         })
+      })
+      zones.sort(function(a, b) {
+        return b.offset - a.offset
       })
       return zones
     }
