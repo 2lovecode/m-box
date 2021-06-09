@@ -11,15 +11,26 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="转Unix时间戳">
+        <el-form-item label="转时间戳">
           <el-col :span="10">
-            <el-input v-model="timetrans.a"></el-input>
+            <el-input v-model="timetrans.aBefore"></el-input>
           </el-col>
           <el-col :span="3" :offset="1">
-            <el-button type="primary" icon="el-icon-edit"></el-button>
+            <el-button type="success" icon="el-icon-d-arrow-right"></el-button>
           </el-col>
           <el-col :span="10">
-            <el-input v-model="timetrans.b"></el-input>
+            <el-input v-model="timetrans.aAfter"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="转时间">
+          <el-col :span="10">
+            <el-input v-model="timetrans.bBefore"></el-input>
+          </el-col>
+          <el-col :span="3" :offset="1">
+            <el-button type="success" icon="el-icon-d-arrow-right"></el-button>
+          </el-col>
+          <el-col :span="10">
+            <el-input v-model="timetrans.bAfter"></el-input>
           </el-col>
         </el-form-item>
     </el-form>
@@ -38,8 +49,10 @@ export default {
   data: () => {
     return {
       timetrans: {
-        a:"",
-        b:"",
+        aBefore:"",
+        aAfter:"",
+        bBefore: "",
+        bAfter:"",
         timezone: "Asia/Shanghai"
       }
     }
