@@ -4,6 +4,7 @@ import { app, BrowserWindow } from 'electron'
 
 import '../renderer/store'
 const Caculator = require('./caculator/index')
+// const db = require('./database')
 
 /**
  * Set `__static` path to static files in production
@@ -22,6 +23,8 @@ const { ipcMain } = require('electron')
 
 ipcMain.on('caculator-send', (event, arg) => {
   var cal = new Caculator()
+  db.set('aaa', 'bbb').write()
+  console.log(db.get('aaa').value())
   event.sender.send('caculator-reply', cal.push(arg))
 })
 

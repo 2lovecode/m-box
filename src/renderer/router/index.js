@@ -45,6 +45,10 @@ export default new Router({
           component: require('@/components/ToolItems/TimeTransPage').default
         },
         {
+          path: 'file-compare',
+          component: require('@/components/ToolItems/FileCompare').default
+        },
+        {
           path: 'pass-manage',
           component: require('@/components/ToolItems/PassManagePage').default
         }

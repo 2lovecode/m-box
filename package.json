@@ -59,6 +59,7 @@
     "axios": "^0.18.0",
     "babylonjs": "^4.2.0",
     "element-ui": "^2.13.2",
+    "lowdb": "^2.1.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "vue": "^2.5.16",

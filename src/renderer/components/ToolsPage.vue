@@ -38,6 +38,10 @@ export default {
         {
           name: '时间转换',
           path: '/tool-items/time-trans'
+        },
+        {
+          name: '文件对比(待定)',
+          path: '/tool-items/file-compare'
         }
       ],
       officeTools: [
