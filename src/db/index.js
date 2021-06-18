@@ -8,7 +8,10 @@ const APP = process.type === 'renderer' ? remote.app : app // 根据process.type
 
 const STORE_PATH = APP.getPath('userData') // 获取electron应用的用户目录
 console.log(path.join(STORE_PATH, '/data.json'))
-const adapter = new FileSync(path.join(STORE_PATH, '/data.json')) // 初始化lowdb读写的json文件名以及存储路径
+const adapter = new FileSync(path.join(STORE_PATH, '/data.json'), {
+  serialize: (data) => encrypt(JSON.stringify(data)),
+  deserialize: (data) => JSON.parse(decrpt(data))
+}) // 初始化lowdb读写的json文件名以及存储路径
 
 const db = Datastore(adapter) // lowdb接管该文件
 

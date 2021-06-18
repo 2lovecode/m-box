@@ -2,7 +2,6 @@
 
 import { app, BrowserWindow } from 'electron'
 import '../renderer/store'
-import db from '../db'
 const Caculator = require('./caculator/index')
 
 /**
@@ -32,17 +31,6 @@ ipcMain.on('pass-manage-select', (event, arg) => {
 })
 // 新建
 ipcMain.on('pass-manage-insert', (event, arg) => {
-  if (db.has('posts').value() === false) {
-    db.set('posts', []).write()
-  }
-  var data = {
-    id: arg.id,
-    name: arg.name,
-    pass: arg.pass
-  }
-  console.log(data)
-  console.log(db.get('posts').push(data).write())
-  event.sender.send('pass-manage-insert-reply', 1)
 })
 // 更新
 ipcMain.on('pass-manage-update', (event, arg) => {
