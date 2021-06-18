@@ -60,38 +60,38 @@
 var moment = require('moment-timezone')
 
 class zoneObj {
-  value = ""
+  value = ''
   offset = 0
-  label = ""
+  label = ''
 }
 export default {
   name: 'time-trans',
   data: () => {
     return {
       timetrans: {
-        aBefore:"",
-        aAfter:"",
+        aBefore: '',
+        aAfter: '',
         aUnit: 1,
-        bBefore: "",
-        bAfter:"",
+        bBefore: '',
+        bAfter: '',
         bUnit: 1,
-        format: "YYYY-MM-DD HH:mm:ss",
-        timezone: "Asia/Shanghai"
+        format: 'YYYY-MM-DD HH:mm:ss',
+        timezone: 'Asia/Shanghai'
       },
       formatMap: [
         {
-          value: "YYYY-MM-DD HH:mm:ss",
-          label: "YYYY-MM-DD HH:mm:ss",
+          value: 'YYYY-MM-DD HH:mm:ss',
+          label: 'YYYY-MM-DD HH:mm:ss'
         }
       ],
       unitMap: [
         {
           value: 1,
-          label: "s(秒)",
+          label: 's(秒)'
         },
         {
           value: 2,
-          label: "ms(毫秒)"
+          label: 'ms(毫秒)'
         }
       ]
     }
@@ -99,23 +99,23 @@ export default {
   computed: {
     zoneMap: function () {
       return this.getZoneMap()
-    },
+    }
   },
   methods: {
-    getZoneMap: function() {
+    getZoneMap: function () {
       var countries = moment.tz.countries()
       var zones = []
 
       countries.forEach((ele, idx) => {
         moment.tz.zonesForCountry(ele, true).forEach((e, i) => {
-          var zo = new zoneObj
+          var zo = new zoneObj()
 
           if (e.offset > 0) {
-            zo.label = e.name+"(GMT - "+e.offset/60+")"
+            zo.label = e.name + '(GMT - ' + e.offset / 60 + ')'
           } else if (e.offset < 0) {
-            zo.label = e.name+"(GMT + "+e.offset/60*-1+")"
+            zo.label = e.name + '(GMT + ' + e.offset / 60 * -1 + ')'
           } else {
-            zo.label = e.name+"(GMT - 0)"
+            zo.label = e.name + '(GMT - 0)'
           }
 
           zo.value = e.name
@@ -123,14 +123,14 @@ export default {
           zones.push(zo)
         })
       })
-      zones.sort(function(a, b) {
+      zones.sort(function (a, b) {
         return b.offset - a.offset
       })
       return zones
     },
-    transStr2Timestamp: function() {
+    transStr2Timestamp: function () {
       var nowTime = moment.tz(this.timetrans.aBefore, this.timetrans.timezone)
-      var nowTimestamp = ""
+      var nowTimestamp = ''
       if (this.timetrans.aUnit == 1) {
         nowTimestamp = nowTime.unix()
       } else {

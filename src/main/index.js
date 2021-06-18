@@ -1,10 +1,9 @@
 'use strict'
 
 import { app, BrowserWindow } from 'electron'
-
 import '../renderer/store'
+import db from '../db'
 const Caculator = require('./caculator/index')
-// const db = require('./database')
 
 /**
  * Set `__static` path to static files in production
@@ -23,9 +22,32 @@ const { ipcMain } = require('electron')
 
 ipcMain.on('caculator-send', (event, arg) => {
   var cal = new Caculator()
-  db.set('aaa', 'bbb').write()
-  console.log(db.get('aaa').value())
   event.sender.send('caculator-reply', cal.push(arg))
+})
+
+// 密码管理模块
+// 读取
+ipcMain.on('pass-manage-select', (event, arg) => {
+  event.sender.send('pass-manage-select-reply', db.get('posts').value())
+})
+// 新建
+ipcMain.on('pass-manage-insert', (event, arg) => {
+  if (db.has('posts').value() === false) {
+    db.set('posts', []).write()
+  }
+  var data = {
+    id: arg.id,
+    name: arg.name,
+    pass: arg.pass
+  }
+  console.log(data)
+  console.log(db.get('posts').push(data).write())
+  event.sender.send('pass-manage-insert-reply', 1)
+})
+// 更新
+ipcMain.on('pass-manage-update', (event, arg) => {
+  console.log(arg)
+  event.sender.send('pass-manage-update-reply', db.get('posts').find({ id: arg.id }).assign(arg).write())
 })
 
 function createWindow () {
