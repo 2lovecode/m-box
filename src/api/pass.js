@@ -1,39 +1,33 @@
 import db from '../db'
 
-const TabelName = "password"
+const PassTabelName = 'password'
 
 export class PassRecord {
-  constructor(id, name, pass) {
-    this.id = id;
-    this.name = name;
-    this.pass = pass;
+  constructor (id, name, pass) {
+    this.id = id
+    this.name = name
+    this.pass = pass
+  }
+  obtainAllPassRecords () {
+    createPassTableIfNotExsist()
+    return db.get(PassTabelName).value()
+  }
+  insertPassRecord () {
+    createPassTableIfNotExsist()
+    var data = {
+      id: this.id,
+      name: this.name,
+      pass: this.pass
+    }
+    return db.get(PassTabelName).push(data).write()
+  }
+  updatePassRecord () {
+    createPassTableIfNotExsist()
   }
 }
 
-export function obtainAllPassRecords () {
-    if (db.has(TabelName).value() === false) {
-      db.set(TabelName, []).write()
-    }
-    return db.get(TabelName).value()
+function createPassTableIfNotExsist () {
+  if (db.has(PassTabelName).value() === false) {
+    db.set(PassTabelName, []).write()
+  }
 }
-
-export function insertPassRecord (record) {
-
-}
-  
-export function updatePassRecord () {
-
-}
-
-
-if (db.has('posts').value() === false) {
-  db.set('posts', []).write()
-}
-var data = {
-  id: arg.id,
-  name: arg.name,
-  pass: arg.pass
-}
-console.log(data)
-console.log(db.get('posts').push(data).write())
-event.sender.send('pass-manage-insert-reply', 1)

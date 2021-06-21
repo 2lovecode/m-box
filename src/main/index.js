@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow } from 'electron'
 import '../renderer/store'
+import { PassRecord } from '../api/pass'
 const Caculator = require('./caculator/index')
 
 /**
@@ -27,15 +28,27 @@ ipcMain.on('caculator-send', (event, arg) => {
 // 密码管理模块
 // 读取
 ipcMain.on('pass-manage-select', (event, arg) => {
-  event.sender.send('pass-manage-select-reply', db.get('posts').value())
+  var record = new PassRecord()
+  event.sender.send('pass-manage-select-reply', record.obtainAllPassRecords())
 })
 // 新建
 ipcMain.on('pass-manage-insert', (event, arg) => {
+  var record = new PassRecord({
+    id: arg.id,
+    name: arg.name,
+    pass: arg.pass
+  })
+
+  event.sender.send('pass-manage-insert-reply', record.insertPassRecord())
 })
 // 更新
 ipcMain.on('pass-manage-update', (event, arg) => {
-  console.log(arg)
-  event.sender.send('pass-manage-update-reply', db.get('posts').find({ id: arg.id }).assign(arg).write())
+  var record = new PassRecord({
+    id: arg.id,
+    name: arg.name,
+    pass: arg.pass
+  })
+  event.sender.send('pass-manage-update-reply', record.updatePassRecord())
 })
 
 function createWindow () {
