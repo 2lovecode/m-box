@@ -1,10 +1,13 @@
-// var CryptoJS = require('crypto-js')
-
-// var data = [{id: 1}, {id: 2}]
-
-// // Encrypt
-// var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), 'secret key 123').toString()
-
-// // Decrypt
-// var bytes  = CryptoJS.AES.decrypt(ciphertext, 'secret key 123')
-// var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+var CryptoJS = require('crypto-js')
+export class Crypto {
+  constructor (secretKey) {
+    this.secretKey = secretKey
+  }
+  encrypt (data) {
+    return CryptoJS.AES.encrypt(data, this.secretKey).toString()
+  }
+  decrypt (text) {
+    var bytes = CryptoJS.AES.decrypt(text, this.secretKey)
+    return bytes.toString(CryptoJS.enc.Utf8)
+  }
+}

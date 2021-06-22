@@ -33,21 +33,14 @@ ipcMain.on('pass-manage-select', (event, arg) => {
 })
 // 新建
 ipcMain.on('pass-manage-insert', (event, arg) => {
-  var record = new PassRecord({
-    id: arg.id,
-    name: arg.name,
-    pass: arg.pass
-  })
+  var record = new PassRecord(arg.id, arg.name, arg.pass)
 
   event.sender.send('pass-manage-insert-reply', record.insertPassRecord())
 })
 // 更新
 ipcMain.on('pass-manage-update', (event, arg) => {
-  var record = new PassRecord({
-    id: arg.id,
-    name: arg.name,
-    pass: arg.pass
-  })
+  console.log(arg)
+  var record = new PassRecord(arg.id, arg.name, arg.pass)
   event.sender.send('pass-manage-update-reply', record.updatePassRecord())
 })
 

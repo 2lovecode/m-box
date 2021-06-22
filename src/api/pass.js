@@ -7,27 +7,31 @@ export class PassRecord {
     this.id = id
     this.name = name
     this.pass = pass
+    if (db.has(PassTabelName).value() === false) {
+      db.set(PassTabelName, []).write()
+    }
   }
   obtainAllPassRecords () {
-    createPassTableIfNotExsist()
     return db.get(PassTabelName).value()
   }
   insertPassRecord () {
-    createPassTableIfNotExsist()
     var data = {
-      id: this.id,
       name: this.name,
       pass: this.pass
     }
-    return db.get(PassTabelName).push(data).write()
+    if (this.id !== '') {
+      var record = db.get(PassTabelName).getById(this.id).value()
+      if (record !== undefined) {
+        return this.updatePassRecord()
+      }
+    }
+    return db.get(PassTabelName).insert(data).write()
   }
   updatePassRecord () {
-    createPassTableIfNotExsist()
-  }
-}
-
-function createPassTableIfNotExsist () {
-  if (db.has(PassTabelName).value() === false) {
-    db.set(PassTabelName, []).write()
+    var data = {
+      name: this.name,
+      pass: this.pass
+    }
+    return db.get(PassTabelName).find({ id: this.id }).assign(data).write()
   }
 }
