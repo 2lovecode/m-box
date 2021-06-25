@@ -33,17 +33,17 @@
         modeMap: [
           {
             path: '/tools',
-            name: '工具模式',
+            name: '工具',
             img: 'static/images/list-1.jpg'
           },
           {
             path: '/games',
-            name: '游戏模式',
+            name: '游戏',
             img: 'static/images/list-2.jpg'
           },
           {
             path: '/read',
-            name: '阅读模式',
+            name: '阅读',
             img: 'static/images/list-3.jpg'
           }
         ]

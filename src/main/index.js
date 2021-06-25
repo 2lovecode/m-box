@@ -18,7 +18,7 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-const { ipcMain } = require('electron')
+const { ipcMain, Menu } = require('electron')
 
 ipcMain.on('caculator-send', (event, arg) => {
   var cal = new Caculator()
@@ -51,6 +51,7 @@ ipcMain.on('pass-manage-delete', (event, arg) => {
 })
 
 function createWindow () {
+  Menu.setApplicationMenu(null)
   /**
    * Initial window options
    */

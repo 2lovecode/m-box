@@ -39,12 +39,12 @@
 <script>
 export default {
   name: 'pass-manage',
-  data() {
+  data () {
     return {
       pass: {
-        id : "",
-        name: "",
-        pass: ""
+        id: '',
+        name: '',
+        pass: ''
       },
       records: []
     }
@@ -61,7 +61,7 @@ export default {
       })
       this.$electron.ipcRenderer.send('pass-manage-select', '')
     },
-    insertRecord: function() {
+    insertRecord: function () {
       let me = this
       this.$electron.ipcRenderer.once('pass-manage-insert-reply', function (event, arg) {
         me.recordList()
@@ -72,22 +72,22 @@ export default {
         pass: me.pass.pass
       })
     },
-    updateRecord: function() {
+    updateRecord: function () {
       let me = this
       this.$electron.ipcRenderer.once('pass-manage-update-reply', function (event, arg) {
         console.log(arg)
       })
       this.$electron.ipcRenderer.send('pass-manage-update', {
         id: me.id,
-        name: "aaa",
-        pass: "ddd"
+        name: 'aaa',
+        pass: 'ddd'
       })
     },
     handleRefresh: function () {
       this.recordList()
     },
     handleCopy: function (data) {
-      this.$message('复制成功');
+      this.$message('复制成功')
       this.$electron.clipboard.writeText(data.pass)
       console.log(data.id)
     },
@@ -100,7 +100,7 @@ export default {
         me.recordList()
       })
       this.$electron.ipcRenderer.send('pass-manage-delete', {
-        id: data.id,
+        id: data.id
       })
       console.log(data.pass)
     }
