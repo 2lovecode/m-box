@@ -43,6 +43,12 @@ ipcMain.on('pass-manage-update', (event, arg) => {
   var record = new PassRecord(arg.id, arg.name, arg.pass)
   event.sender.send('pass-manage-update-reply', record.updatePassRecord())
 })
+// 删除
+ipcMain.on('pass-manage-delete', (event, arg) => {
+  console.log(arg)
+  var record = new PassRecord(arg.id)
+  event.sender.send('pass-manage-delete-reply', record.deletePassRecord())
+})
 
 function createWindow () {
   /**

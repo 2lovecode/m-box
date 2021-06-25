@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-main>
+    <el-header>
       <el-row>
         <el-form :inline="true" :model="pass" class="demo-form-inline">
           <el-form-item label="账号">
@@ -14,21 +14,32 @@
           </el-form-item>
         </el-form>
       </el-row>
-      <el-row>
-        <el-col :span="4">账号</el-col>
-        <el-col :span="4">密码</el-col>
-      </el-row>
-      <el-row v-for="(v, idx) in records" :key="idx">
-        <el-col :span="4">{{ v.name }}</el-col>
-        <el-col :span="4">{{ v.pass }}</el-col>
-      </el-row>
+    </el-header>
+    <el-main>
+      <el-card>
+      <div slot="header" class="clearfix">
+        <span>账号列表</span>
+        <el-button style="float: right; padding: 3px 0" type="text" @click="handleRefresh">刷新</el-button>
+      </div>
+      <el-table :data="records">
+        <el-table-column prop="name" label="账号"></el-table-column>
+        <el-table-column prop="pass" label="密码"></el-table-column>
+        <el-table-column fixed="right" label="操作">
+          <template slot-scope="scope">
+            <el-button @click="handleCopy(scope.row)" type="text" size="small">复制</el-button>
+            <el-button @click="handleShow(scope.row)" type="text" size="small">查看</el-button>
+            <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
     </el-main>
   </el-container>
 </template>
 <script>
 export default {
   name: 'pass-manage',
-  data: () => {
+  data() {
     return {
       pass: {
         id : "",
@@ -71,6 +82,27 @@ export default {
         name: "aaa",
         pass: "ddd"
       })
+    },
+    handleRefresh: function () {
+      this.recordList()
+    },
+    handleCopy: function (data) {
+      this.$message('复制成功');
+      this.$electron.clipboard.writeText(data.pass)
+      console.log(data.id)
+    },
+    handleShow: function (data) {
+      console.log(data.name)
+    },
+    handleDelete: function (data) {
+      let me = this
+      this.$electron.ipcRenderer.once('pass-manage-delete-reply', function (event, arg) {
+        me.recordList()
+      })
+      this.$electron.ipcRenderer.send('pass-manage-delete', {
+        id: data.id,
+      })
+      console.log(data.pass)
     }
   }
 }

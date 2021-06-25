@@ -34,4 +34,10 @@ export class PassRecord {
     }
     return db.get(PassTabelName).find({ id: this.id }).assign(data).write()
   }
+  deletePassRecord () {
+    var data = {
+      id: this.id
+    }
+    return db.get(PassTabelName).remove(data).write()
+  }
 }
