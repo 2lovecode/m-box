@@ -1,28 +1,33 @@
 # m-box
 
-> An electron-vue project
+> 跨平台的工具箱软件，提供一些小工具，小游戏
 
-#### Build Setup
+#### 构建过程
 
 ``` bash
-# install dependencies
-npm install
+# 进入项目根目录
+cd /path/to/m-obx
 
-# serve with hot reload at localhost:9080
-npm run dev
+# 安装依赖
+cnpm install
 
-# build electron application for production
-npm run build
+# pack
+cnpm run pack
 
-# run unit & end-to-end tests
-npm test
-
-
-# lint all JS/Vue component files in `src/`
-npm run lint
-
+# 构建
+cnpm run build
 ```
 
----
+#### 本地开发
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[45a3e22](https://github.com/SimulatedGREG/electron-vue/tree/45a3e224e7bb8fc71909021ccfdcfec0f461f634) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+``` bash
+# 进入项目根目录
+cd /path/to/m-box
+
+# 安装依赖
+cnpm install
+
+# 运行
+cnpm run dev
+
+```
