@@ -4,11 +4,12 @@
     <el-main>
       <el-row>
         <el-col>
-          <el-carousel type="card" height="200px" :autoplay="false" arrow="always" trigger="click" indicator-position="none" @change="modeChange" :initial-index="defaultIndex">
+          <el-carousel type="card" :autoplay="false" arrow="always" trigger="click" indicator-position="none" @change="modeChange" :initial-index="defaultIndex">
             <el-carousel-item v-for="(item, index) in modeMap" :key="index">
-              <el-row>
-                <el-col align="center">
-                  <h3 class="medium">{{ item.name }}</h3>
+              <el-row style="height:100%;">
+                <el-col align="center" style="height:100%;background-color:#F6F6F6;">
+                  <el-image :src="item.img" fit="scale-down" style="height:100%;">
+                  </el-image>
                 </el-col>
               </el-row>
             </el-carousel-item>
@@ -34,17 +35,17 @@
           {
             path: '/tools',
             name: '工具',
-            img: 'static/images/list-1.jpg'
+            img: 'static/images/tools_001.jpeg'
           },
           {
             path: '/games',
             name: '游戏',
-            img: 'static/images/list-2.jpg'
+            img: 'static/images/games_001.jpeg'
           },
           {
             path: '/read',
             name: '阅读',
-            img: 'static/images/list-3.jpg'
+            img: 'static/images/read_001.jpeg'
           }
         ]
       }

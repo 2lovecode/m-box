@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <el-page-header @back="goTool" title="工具" :content="getToolName">
+      <el-page-header @back="goTool" title="工具列表" :content="getToolName">
       </el-page-header>
     </el-header>
     <el-main>

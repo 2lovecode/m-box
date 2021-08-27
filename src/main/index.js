@@ -2,7 +2,9 @@
 
 import { app, BrowserWindow } from 'electron'
 import '../renderer/store'
-import { PassRecord } from '../api/pass'
+
+import {Dispatcher} from './module/index'
+
 const Caculator = require('./caculator/index')
 
 /**
@@ -20,34 +22,14 @@ const winURL = process.env.NODE_ENV === 'development'
 
 const { ipcMain, Menu } = require('electron')
 
+ipcMain.on('mbox-request', (event, arg) => {
+  var dispatcher = new Dispatcher()
+  event.sender.send('mbox-response', dispatcher.deal(arg))
+})
+
 ipcMain.on('caculator-send', (event, arg) => {
   var cal = new Caculator()
   event.sender.send('caculator-reply', cal.push(arg))
-})
-
-// 密码管理模块
-// 读取
-ipcMain.on('pass-manage-select', (event, arg) => {
-  var record = new PassRecord()
-  event.sender.send('pass-manage-select-reply', record.obtainAllPassRecords())
-})
-// 新建
-ipcMain.on('pass-manage-insert', (event, arg) => {
-  var record = new PassRecord(arg.id, arg.name, arg.pass)
-
-  event.sender.send('pass-manage-insert-reply', record.insertPassRecord())
-})
-// 更新
-ipcMain.on('pass-manage-update', (event, arg) => {
-  console.log(arg)
-  var record = new PassRecord(arg.id, arg.name, arg.pass)
-  event.sender.send('pass-manage-update-reply', record.updatePassRecord())
-})
-// 删除
-ipcMain.on('pass-manage-delete', (event, arg) => {
-  console.log(arg)
-  var record = new PassRecord(arg.id)
-  event.sender.send('pass-manage-delete-reply', record.deletePassRecord())
 })
 
 function createWindow () {

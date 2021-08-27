@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <el-page-header @back="goHome" title="主页" content="工具">
+      <el-page-header @back="goHome" title="主界面" content="工具列表">
       </el-page-header>
     </el-header>
     <el-main>
