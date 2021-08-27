@@ -11,11 +11,9 @@ cd /path/to/m-obx
 # 安装依赖
 cnpm install
 
-# pack
-cnpm run pack
-
 # 构建
-cnpm run build
+windows: cnpm run build
+mac: cnpm run build:mac
 ```
 
 #### 本地开发
