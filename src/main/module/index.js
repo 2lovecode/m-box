@@ -16,7 +16,7 @@ export function Dispatcher () {
     if ('data' in arg) {
       data = arg.data
     }
-    console.log(operation, data)
+    
     switch (operation) {
       case cs.passRecordList:
         res = pass.select()

@@ -20,13 +20,14 @@
           </div>
         </el-col>
         <el-col align="center">
-          <el-button type="info" round @click="start">开始</el-button>
+          <el-button type="info" round @click="start">{{modeName}}</el-button>
         </el-col>
       </el-row>
-    </el-main>   
+    </el-main>
   </el-container>
 </template>
 <script>
+
   export default {
     name: 'home-page',
     data: () => {
@@ -65,6 +66,18 @@
           return path
         }
         return this.modeMap[0].path
+      },
+      modeName: function () {
+        var mode = 0
+        if (this.$store.getters.getMode !== undefined) {
+          mode = this.$store.getters.getMode
+        }
+
+        var name = this.modeMap[mode].name
+        if (name !== undefined && name !== '') {
+          return name
+        }
+        return this.modeMap[0].name
       }
     },
     methods: {

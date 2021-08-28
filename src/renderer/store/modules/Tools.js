@@ -4,13 +4,11 @@ export default {
   },
   mutations: {
     CHANGE_TOOL_NAME (state, toolName) {
-      console.log('this is change')
       state.toolName = toolName
     }
   },
   actions: {
     changeToolName (context, toolName) {
-      console.log('change tool name')
       context.commit('CHANGE_TOOL_NAME', toolName)
     }
   },

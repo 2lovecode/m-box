@@ -1,8 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <el-page-header @back="goGame" title="游戏">
-      </el-page-header>
+      <h4>游戏</h4>
     </el-header>
     <el-main>
        <router-view></router-view>

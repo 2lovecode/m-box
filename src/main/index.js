@@ -27,6 +27,10 @@ ipcMain.on('mbox-request', (event, arg) => {
   event.sender.send('mbox-response', dispatcher.deal(arg))
 })
 
+ipcMain.on('mbox-close-action', (event, arg) => {
+  mainWindow.close()
+})
+
 ipcMain.on('caculator-send', (event, arg) => {
   var cal = new Caculator()
   event.sender.send('caculator-reply', cal.push(arg))
@@ -40,7 +44,8 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 600,
     useContentSize: true,
-    width: 1000
+    width: 1000,
+    frame: false
   })
 
   mainWindow.loadURL(winURL)

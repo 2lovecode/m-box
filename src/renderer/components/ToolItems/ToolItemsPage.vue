@@ -1,8 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <el-page-header @back="goTool" title="工具列表" :content="getToolName">
-      </el-page-header>
+      <h4>{{getToolName}}</h4>
     </el-header>
     <el-main>
        <router-view></router-view>
