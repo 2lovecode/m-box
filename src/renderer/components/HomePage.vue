@@ -95,6 +95,9 @@
   }
 </script>
 <style scoped>
+  div {
+    -webkit-app-region: no-drag;
+  }
   .el-carousel__item:nth-child(2n) {
     background-color: #99a9bf;
   }

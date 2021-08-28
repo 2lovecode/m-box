@@ -139,9 +139,9 @@
   body {
     margin: 0;
     padding: 0;
-    -webkit-app-region: drag;
+    -webkit-app-region:drag;
   }
-  a, div, i, button, span{
+  a, i, button, span, input, select{
     -webkit-app-region: no-drag;
   }
 </style>

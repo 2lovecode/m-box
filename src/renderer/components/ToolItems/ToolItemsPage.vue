@@ -26,3 +26,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  div {
+    -webkit-app-region: no-drag;
+  }
+</style>
