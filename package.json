@@ -68,6 +68,7 @@
     "lowdb": "^1.0.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
+    "mousetrap": "^1.6.5",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
