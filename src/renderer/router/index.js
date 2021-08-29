@@ -45,6 +45,10 @@ export default new Router({
           component: require('@/components/ToolItems/TimeTransPage').default
         },
         {
+          path: 'json-editor',
+          component: require('@/components/ToolItems/JsonEditorPage').default
+        },
+        {
           path: 'file-compare',
           component: require('@/components/ToolItems/FileCompare').default
         },

@@ -39,6 +39,10 @@ export default {
           path: '/tool-items/time-trans'
         },
         {
+          name: 'Json格式化',
+          path: '/tool-items/json-editor'
+        },
+        {
           name: '文件对比(待定)',
           path: '/tool-items/file-compare'
         }
