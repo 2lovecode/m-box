@@ -39,7 +39,7 @@ export default {
           path: '/tool-items/time-trans'
         },
         {
-          name: 'Json格式化',
+          name: 'JSON编辑器',
           path: '/tool-items/json-editor'
         },
         {
