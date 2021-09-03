@@ -15,6 +15,9 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
+/**
+ * 创建主窗口
+ */
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
@@ -22,21 +25,7 @@ const winURL = process.env.NODE_ENV === 'development'
 
 const { ipcMain, Menu } = require('electron')
 
-ipcMain.on('mbox-request', (event, arg) => {
-  var dispatcher = new Dispatcher()
-  event.sender.send('mbox-response', dispatcher.deal(arg))
-})
-
-ipcMain.on('mbox-close-action', (event, arg) => {
-  mainWindow.close()
-})
-
-ipcMain.on('caculator-send', (event, arg) => {
-  var cal = new Caculator()
-  event.sender.send('caculator-reply', cal.push(arg))
-})
-
-function createWindow () {
+function createMainWindow () {
   Menu.setApplicationMenu(null)
   /**
    * Initial window options
@@ -54,7 +43,7 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', createMainWindow)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -64,7 +53,72 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (mainWindow === null) {
-    createWindow()
+    createMainWindow()
+  }
+})
+
+let windowPool = []
+
+function createWindow (name, path) {
+  /**
+   * Initial window options
+   */
+  windowPool[name] = new BrowserWindow({
+    height: 650,
+    useContentSize: true,
+    width: 1000,
+    x: 300,
+    y: 200
+  })
+
+  windowPool[name].loadURL(path)
+
+  windowPool[name].on('closed', () => {
+    windowPool[name] = null
+  })
+}
+
+function calcPath (path) {
+  return process.env.NODE_ENV === 'development' ? `http://localhost:9080#${path}` : `file://${__dirname}/index.html#${path}`
+}
+
+/**
+ * 通信处理
+ */
+
+// 处理业务请求公共入口
+ipcMain.on('mbox-request', (event, arg) => {
+  var dispatcher = new Dispatcher()
+  event.sender.send('mbox-response', dispatcher.deal(arg))
+})
+
+// 计算器通信模块 - 待删除
+ipcMain.on('caculator-send', (event, arg) => {
+  var cal = new Caculator()
+  event.sender.send('caculator-reply', cal.push(arg))
+})
+
+// 创建窗口
+ipcMain.on('mbox-create-window', (event, arg) => {
+  if ('name' in arg && 'path' in arg) {
+    let realPath = calcPath(arg['path'])
+    console.log(realPath)
+    createWindow(arg['name'], realPath)
+  }
+})
+
+// 关闭窗口
+ipcMain.on('mbox-close-window', (event, arg) => {
+  if ('name' in arg) {
+    switch (arg['name']) {
+      case 'main':
+        mainWindow.close()
+        break
+      default:
+        if (windowPool.hasOwnProperty(arg['name'])) {
+          windowPool[arg['name']].close()
+        }
+    }
   }
 })
 
