@@ -37,6 +37,11 @@ function createMainWindow () {
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
+    for (var x in windowPool) {
+      if (windowPool[x] != null) {
+        windowPool[x].close()
+      }
+    }
     mainWindow = null
   })
 }

@@ -54,7 +54,7 @@ export default {
           path: '/tool-items/json-editor'
         },
         {
-          name: '文件对比(待定)',
+          name: '文件对比',
           path: '/tool-items/file-compare'
         }
       ],
@@ -88,12 +88,8 @@ export default {
       this.$router.push('/')
     },
     goToolItem (path, toolName) {
-      // console.log(this.$store.dispatch)
-      this.$store.dispatch('changeToolName', toolName)
       // mbox-create-window
-      console.log(path, toolName)
       this.$electron.ipcRenderer.send('mbox-create-window', {'name': toolName, 'path': path})
-      // this.$router.push(path)
     },
     handleButtonClick: function (data) {
       this.escDialogVisible = false

@@ -1,11 +1,6 @@
 <template>
   <el-container>
-    <el-header>
-      <h4>游戏</h4>
-    </el-header>
-    <el-main>
-       <router-view></router-view>
-    </el-main>
+    <router-view></router-view>
   </el-container>
 </template>
 <script>

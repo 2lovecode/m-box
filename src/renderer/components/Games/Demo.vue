@@ -1,9 +1,16 @@
 <template>
-  <el-row>
-    <el-col>
-      <canvas id="renderCanvas"></canvas>
-    </el-col>
-  </el-row>
+  <el-container>
+    <el-header>
+      <h4>Demo</h4>
+    </el-header>
+    <el-main>
+      <el-row>
+        <el-col>
+          <canvas id="renderCanvas"></canvas>
+        </el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 <script>
 import * as BABYLON from 'babylonjs'

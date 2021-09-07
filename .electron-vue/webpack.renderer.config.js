@@ -136,7 +136,12 @@ let rendererConfig = {
         : false
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      CodeMirror: 'codemirror'
+    })
   ],
   output: {
     filename: '[name].js',
@@ -146,7 +151,10 @@ let rendererConfig = {
   resolve: {
     alias: {
       '@': path.join(__dirname, '../src/renderer'),
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      'CodeMirror':   path.join(__dirname, 'node_modules', 'codemirror'),
+      'jQuery':       path.join(__dirname, 'node_modules', 'jquery'),
+      '$':            path.join(__dirname, 'node_modules', 'jquery')
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
   },
