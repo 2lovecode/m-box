@@ -19,7 +19,7 @@ const { VueLoaderPlugin } = require('vue-loader')
  * that provide pure *.vue files that need compiling
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
  */
-let whiteListedModules = ['vue', 'element-ui']
+let whiteListedModules = ['vue', 'element-ui', 'jquery', 'codemirror', 'mergely']
 
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
@@ -151,10 +151,7 @@ let rendererConfig = {
   resolve: {
     alias: {
       '@': path.join(__dirname, '../src/renderer'),
-      'vue$': 'vue/dist/vue.esm.js',
-      'CodeMirror':   path.join(__dirname, 'node_modules', 'codemirror'),
-      'jQuery':       path.join(__dirname, 'node_modules', 'jquery'),
-      '$':            path.join(__dirname, 'node_modules', 'jquery')
+      'vue$': 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
   },
