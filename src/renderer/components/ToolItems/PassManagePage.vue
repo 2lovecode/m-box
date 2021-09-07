@@ -1,65 +1,70 @@
 <template>
   <el-container>
     <el-header>
-      <el-row>
-        <el-form :inline="true" :model="pass" class="demo-form-inline">
-          <el-form-item label="账号">
-            <el-input v-model="pass.name" placeholder="账号"></el-input>
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="pass.pass" placeholder="密码"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="insertRecord">添加</el-button>
-          </el-form-item>
-        </el-form>
-      </el-row>
+      <h4>密码管理</h4>
     </el-header>
     <el-main>
-      <el-card>
-      <div slot="header" class="clearfix">
-        <span>账号列表</span>
-        <el-button style="float: right; padding: 3px 0" type="text" @click="handleRefresh">刷新</el-button>
-      </div>
-      <el-table :data="records">
-        <el-table-column prop="name" label="账号"></el-table-column>
-        <el-table-column prop="pass2" data="pass" label="密码"></el-table-column>
-        <el-table-column fixed="right" label="操作">
-          <template slot-scope="scope">
-            <el-button @click="handleCopy(scope.row)" type="text" size="small">复制</el-button>
-            <el-popover
-              placement="bottom"
-              trigger="click"
-              :content="scope.row.pass">
-              <el-button type="text" size="small" slot="reference">查看</el-button>
-            </el-popover>
-            <el-button type="text" size="small" @click="handleEdit(scope.row)">修改</el-button>
-            <el-popconfirm
-              confirm-button-text='确定'
-              cancel-button-text='取消'
-              icon="el-icon-info"
-              icon-color="red"
-              title="确定删除这条记录吗？"
-              @confirm="handleDelete(scope.row)"
-            >
-              <el-button slot="reference" type="text" size="small">删除</el-button>
-            </el-popconfirm>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-card>
-    <el-dialog :title="editForm.name" :visible.sync="editDialogFormVisible">
-      <el-form :model="editForm">
-        <el-form-item label="密码">
-          <el-input v-model="editForm.pass" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-input v-model="editForm.id" type="hidden"></el-input>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="handleEditCancel(data)">取 消</el-button>
-        <el-button type="primary" @click="handleEditConfirm()">确 定</el-button>
-      </div>
-    </el-dialog>
+      <el-header>
+        <el-row>
+          <el-form :inline="true" :model="pass" class="demo-form-inline">
+            <el-form-item label="账号">
+              <el-input v-model="pass.name" placeholder="账号"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+              <el-input v-model="pass.pass" placeholder="密码"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="insertRecord">添加</el-button>
+            </el-form-item>
+          </el-form>
+        </el-row>
+      </el-header>
+      <el-main>
+        <el-card>
+        <div slot="header" class="clearfix">
+          <span>账号列表</span>
+          <el-button style="float: right; padding: 3px 0" type="text" @click="handleRefresh">刷新</el-button>
+        </div>
+        <el-table :data="records">
+          <el-table-column prop="name" label="账号"></el-table-column>
+          <el-table-column prop="pass2" data="pass" label="密码"></el-table-column>
+          <el-table-column fixed="right" label="操作">
+            <template slot-scope="scope">
+              <el-button @click="handleCopy(scope.row)" type="text" size="small">复制</el-button>
+              <el-popover
+                placement="bottom"
+                trigger="click"
+                :content="scope.row.pass">
+                <el-button type="text" size="small" slot="reference">查看</el-button>
+              </el-popover>
+              <el-button type="text" size="small" @click="handleEdit(scope.row)">修改</el-button>
+              <el-popconfirm
+                confirm-button-text='确定'
+                cancel-button-text='取消'
+                icon="el-icon-info"
+                icon-color="red"
+                title="确定删除这条记录吗？"
+                @confirm="handleDelete(scope.row)"
+              >
+                <el-button slot="reference" type="text" size="small">删除</el-button>
+              </el-popconfirm>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-card>
+      <el-dialog :title="editForm.name" :visible.sync="editDialogFormVisible">
+        <el-form :model="editForm">
+          <el-form-item label="密码">
+            <el-input v-model="editForm.pass" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-input v-model="editForm.id" type="hidden"></el-input>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="handleEditCancel(data)">取 消</el-button>
+          <el-button type="primary" @click="handleEditConfirm()">确 定</el-button>
+        </div>
+      </el-dialog>
+      </el-main>
     </el-main>
   </el-container>
 </template>

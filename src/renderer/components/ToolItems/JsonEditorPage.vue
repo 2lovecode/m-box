@@ -1,20 +1,27 @@
 <template>
-    <el-row>
-      <el-col :span="20">
-        <el-input
-          type="textarea"
-          :rows="2"
-          placeholder="请输入内容"
-          v-model="textarea">
-        </el-input>
-      </el-col>
-      <el-col :offset="1" :span="3">
-        <el-button @click="handleJsonFormat">格式化</el-button>
-      </el-col>
-      <el-col :span="24" style="margin-top:10px;">
-        <div id="jsoneditor" style="width: 100%; height: 485px;"></div>
-      </el-col>
-    </el-row>
+  <el-container>
+    <el-header>
+      <h4>JSON编辑器</h4>
+    </el-header>
+    <el-main>
+      <el-row>
+        <el-col :span="20">
+          <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="textarea">
+          </el-input>
+        </el-col>
+        <el-col :offset="1" :span="3">
+          <el-button @click="handleJsonFormat">格式化</el-button>
+        </el-col>
+        <el-col :span="24" style="margin-top:10px;">
+          <div id="jsoneditor" style="width: 100%; height: 485px;"></div>
+        </el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 <script>
 

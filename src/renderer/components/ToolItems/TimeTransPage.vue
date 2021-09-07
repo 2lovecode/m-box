@@ -1,59 +1,64 @@
 <template>
   <el-container>
-    <el-form :model="timetrans" label-width="6em" style="width:90%;">
-        <el-form-item label="选择时区">
-          <el-select v-model="timetrans.timezone" filterable placeholder="请选择时区" style="width:18em;">
-            <el-option
-              v-for="(zone, idx) in zoneMap"
-              :key="idx"
-              :label="zone.label"
-              :value="zone.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-         <el-form-item label="时间格式">
-          <el-select v-model="timetrans.format" filterable placeholder="请选择时间格式" style="width:18em;">
-            <el-option
-              v-for="(format, idx) in formatMap"
-              :key="idx"
-              :label="format.label"
-              :value="format.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="转时间戳">
-          <el-col :span="8">
-            <el-input v-model="timetrans.aBefore" placeholder="时间(2021-06-06 12:00:00)"></el-input>
-          </el-col>
-          <el-col :span="2" :offset="1">
-            <el-button type="success" icon="el-icon-d-arrow-right" @click="transStr2Timestamp"></el-button>
-          </el-col>
-          <el-col :span="8" :offset="1">
-            <el-input v-model="timetrans.aAfter"></el-input>
-          </el-col>
-          <el-col :span="3" :offset="1">
-            <el-select v-model="timetrans.aUnit">
-              <el-option v-for="(unit, idx) in unitMap" :key="idx" :label="unit.label" :value="unit.value"></el-option>
+    <el-header>
+      <h4>时间转换</h4>
+    </el-header>
+    <el-main>
+      <el-form :model="timetrans" label-width="6em" style="width:90%;">
+          <el-form-item label="选择时区">
+            <el-select v-model="timetrans.timezone" filterable placeholder="请选择时区" style="width:18em;">
+              <el-option
+                v-for="(zone, idx) in zoneMap"
+                :key="idx"
+                :label="zone.label"
+                :value="zone.value">
+              </el-option>
             </el-select>
-          </el-col>
-        </el-form-item>
-        <el-form-item label="转时间">
-          <el-col :span="8">
-            <el-input v-model="timetrans.bBefore" placeholder="时间戳(1622952000)"></el-input>
-          </el-col>
-          <el-col :span="3" :offset="1">
-            <el-select v-model="timetrans.bUnit">
-              <el-option v-for="(unit, idx) in unitMap" :key="idx" :label="unit.label" :value="unit.value"></el-option>
+          </el-form-item>
+          <el-form-item label="时间格式">
+            <el-select v-model="timetrans.format" filterable placeholder="请选择时间格式" style="width:18em;">
+              <el-option
+                v-for="(format, idx) in formatMap"
+                :key="idx"
+                :label="format.label"
+                :value="format.value">
+              </el-option>
             </el-select>
-          </el-col>
-          <el-col :span="2" :offset="1">
-            <el-button type="success" icon="el-icon-d-arrow-right" @click="transTimestamp2Str"></el-button>
-          </el-col>
-          <el-col :span="8" :offset="1">
-            <el-input v-model="timetrans.bAfter"></el-input>
-          </el-col>
-        </el-form-item>
-    </el-form>
+          </el-form-item>
+          <el-form-item label="转时间戳">
+            <el-col :span="8">
+              <el-input v-model="timetrans.aBefore" placeholder="时间(2021-06-06 12:00:00)"></el-input>
+            </el-col>
+            <el-col :span="2" :offset="1">
+              <el-button type="success" icon="el-icon-d-arrow-right" @click="transStr2Timestamp"></el-button>
+            </el-col>
+            <el-col :span="8" :offset="1">
+              <el-input v-model="timetrans.aAfter"></el-input>
+            </el-col>
+            <el-col :span="3" :offset="1">
+              <el-select v-model="timetrans.aUnit">
+                <el-option v-for="(unit, idx) in unitMap" :key="idx" :label="unit.label" :value="unit.value"></el-option>
+              </el-select>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="转时间">
+            <el-col :span="8">
+              <el-input v-model="timetrans.bBefore" placeholder="时间戳(1622952000)"></el-input>
+            </el-col>
+            <el-col :span="3" :offset="1">
+              <el-select v-model="timetrans.bUnit">
+                <el-option v-for="(unit, idx) in unitMap" :key="idx" :label="unit.label" :value="unit.value"></el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="2" :offset="1">
+              <el-button type="success" icon="el-icon-d-arrow-right" @click="transTimestamp2Str"></el-button>
+            </el-col>
+            <el-col :span="8" :offset="1">
+              <el-input v-model="timetrans.bAfter"></el-input>
+            </el-col>
+          </el-form-item>
+      </el-form>
+    </el-main>
   </el-container>
 </template>
 <script>

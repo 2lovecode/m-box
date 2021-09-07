@@ -5,8 +5,6 @@ import '../renderer/store'
 
 import {Dispatcher} from './module/index'
 
-const Caculator = require('./caculator/index')
-
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -92,18 +90,16 @@ ipcMain.on('mbox-request', (event, arg) => {
   event.sender.send('mbox-response', dispatcher.deal(arg))
 })
 
-// 计算器通信模块 - 待删除
-ipcMain.on('caculator-send', (event, arg) => {
-  var cal = new Caculator()
-  event.sender.send('caculator-reply', cal.push(arg))
-})
-
 // 创建窗口
 ipcMain.on('mbox-create-window', (event, arg) => {
   if ('name' in arg && 'path' in arg) {
-    let realPath = calcPath(arg['path'])
-    console.log(realPath)
-    createWindow(arg['name'], realPath)
+    if (windowPool.hasOwnProperty(arg['name']) && windowPool[arg['name']] != null) {
+      // 防止重复打开同一功能窗口
+      windowPool[arg['name']].focus()
+    } else {
+      let realPath = calcPath(arg['path'])
+      createWindow(arg['name'], realPath)
+    }
   }
 })
 
@@ -115,7 +111,7 @@ ipcMain.on('mbox-close-window', (event, arg) => {
         mainWindow.close()
         break
       default:
-        if (windowPool.hasOwnProperty(arg['name'])) {
+        if (windowPool.hasOwnProperty(arg['name']) && windowPool[arg['name']] != null) {
           windowPool[arg['name']].close()
         }
     }
