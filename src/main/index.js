@@ -76,6 +76,20 @@ function createWindow (name, path) {
 
   windowPool[name].loadURL(path)
 
+  windowPool[name].on('ready', () => {
+    let contents = windowPool[name].webContents
+    const localShortcut = require('electron-localshortcut')
+    localShortcut.register(windowPool[name], 'CommandOrControl+A', () => {
+      contents.selectAll()
+    })
+    localShortcut.register(windowPool[name], 'CommandOrControl+C', () => {
+      contents.copy()
+    })
+    localShortcut.register(windowPool[name], 'CommandOrControl+V', () => {
+      contents.paste()
+    })
+  })
+
   windowPool[name].on('closed', () => {
     windowPool[name] = null
   })
