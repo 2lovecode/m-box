@@ -63,6 +63,7 @@
     "axios": "^0.18.0",
     "babylonjs": "^4.2.0",
     "codemirror": "^5.62.3",
+    "cropperjs": "^1.5.12",
     "crypto-js": "^4.0.0",
     "element-ui": "^2.13.2",
     "jquery": "^3.6.0",

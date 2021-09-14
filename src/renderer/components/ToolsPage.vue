@@ -62,6 +62,14 @@ export default {
         {
           name: '密码管理',
           path: '/tool-items/pass-manage'
+        },
+        {
+          name: '图片编辑',
+          path: '/tool-items/image-editor'
+        },
+        {
+          name: '视频编辑',
+          path: '/tool-items/video-editor'
         }
       ],
       escDialogVisible: false,

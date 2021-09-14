@@ -55,6 +55,14 @@ export default new Router({
         {
           path: 'pass-manage',
           component: require('@/components/ToolItems/PassManagePage').default
+        },
+        {
+          path: 'image-editor',
+          component: require('@/components/ToolItems/ImageEditorPage').default
+        },
+        {
+          path: 'video-editor',
+          component: require('@/components/ToolItems/VideoEditorPage').default
         }
       ]
     }
