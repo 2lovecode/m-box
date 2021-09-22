@@ -13,13 +13,13 @@ export class Pass {
   }
 
   insert (arg) {
-    var record = new PassRecord(arg.id, arg.name, arg.pass)
+    var record = new PassRecord(arg.id, arg.item, arg.name, arg.pass)
 
     return record.insertPassRecord()
   }
 
   update (arg) {
-    var record = new PassRecord(arg.id, arg.name, arg.pass)
+    var record = new PassRecord(arg.id, arg.item, arg.name, arg.pass)
     return record.updatePassRecord()
   }
 

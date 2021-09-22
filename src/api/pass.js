@@ -3,8 +3,9 @@ import db from '../db'
 const PassTabelName = 'password'
 
 export class PassRecord {
-  constructor (id, name, pass) {
+  constructor (id, item, name, pass) {
     this.id = id
+    this.item = item
     this.name = name
     this.pass = pass
     if (db.has(PassTabelName).value() === false) {
@@ -16,6 +17,7 @@ export class PassRecord {
   }
   insertPassRecord () {
     var data = {
+      item: this.item,
       name: this.name,
       pass: this.pass
     }
@@ -29,6 +31,7 @@ export class PassRecord {
   }
   updatePassRecord () {
     var data = {
+      item: this.item,
       name: this.name,
       pass: this.pass
     }

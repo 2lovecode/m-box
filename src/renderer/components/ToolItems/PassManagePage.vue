@@ -7,6 +7,9 @@
       <el-header>
         <el-row>
           <el-form :inline="true" :model="pass" class="demo-form-inline">
+            <el-form-item label="类别">
+              <el-input v-model="pass.item" placeholder="类别"></el-input>
+            </el-form-item>
             <el-form-item label="账号">
               <el-input v-model="pass.name" placeholder="账号"></el-input>
             </el-form-item>
@@ -26,6 +29,7 @@
           <el-button style="float: right; padding: 3px 0" type="text" @click="handleRefresh">刷新</el-button>
         </div>
         <el-table :data="records">
+          <el-table-column prop="item" label="类别"></el-table-column>
           <el-table-column prop="name" label="账号"></el-table-column>
           <el-table-column prop="pass2" data="pass" label="密码"></el-table-column>
           <el-table-column fixed="right" label="操作">
@@ -77,13 +81,15 @@ export default {
     return {
       pass: {
         id: '',
+        item: '',
         name: '',
         pass: '',
-        pass2: '',
+        pass2: ''
       },
       editDialogFormVisible: false,
       editForm: {
         id: '',
+        item: '',
         pass: '',
         name: ''
       },
@@ -94,39 +100,40 @@ export default {
     this.recordList()
     var me = this
     this.$electron.ipcRenderer.on('mbox-response', function (event, arg) {
-        var operation = ''
-        var data = {}
-        if ('operation' in arg) {
-          operation = arg.operation
-        }
-        if ('data' in arg) {
-          data = arg.data
-        }
-        switch (operation) {
-          case passRecordList:
-            if (Array.isArray(data)) {
-              var records = new Array()
-              for (let i = 0, l = data.length; i < l; i++) {
-                records[i] = {
-                  id: data[i].id,
-                  name: data[i].name,
-                  pass: data[i].pass,
-                  pass2: '******'
-                }
+      var operation = ''
+      var data = {}
+      if ('operation' in arg) {
+        operation = arg.operation
+      }
+      if ('data' in arg) {
+        data = arg.data
+      }
+      switch (operation) {
+        case passRecordList:
+          if (Array.isArray(data)) {
+            var records = new Array()
+            for (let i = 0, l = data.length; i < l; i++) {
+              records[i] = {
+                id: data[i].id,
+                item: data[i].item,
+                name: data[i].name,
+                pass: data[i].pass,
+                pass2: '******'
               }
-              me.records = records
             }
-            break
-          case passRecordAdd:
-            me.recordList()
-            break
-          case passRecordEdit:
-            me.recordList()
-            break
-          case passRecordDel:
-            me.recordList()
-            break
-        }
+            me.records = records
+          }
+          break
+        case passRecordAdd:
+          me.recordList()
+          break
+        case passRecordEdit:
+          me.recordList()
+          break
+        case passRecordDel:
+          me.recordList()
+          break
+      }
     })
   },
   methods: {
@@ -134,6 +141,7 @@ export default {
       var ipcPayload = new IPCPayload(passRecordList, {})
       this.$electron.ipcRenderer.send('mbox-request', ipcPayload.toJSON())
       this.pass.id = ''
+      this.pass.item = ''
       this.pass.name = ''
       this.pass.pass = ''
       this.pass.pass2 = ''
@@ -141,6 +149,7 @@ export default {
     insertRecord: function () {
       var ipcPayload = new IPCPayload(passRecordAdd, {
         id: this.pass.id,
+        item: this.pass.item,
         name: this.pass.name,
         pass: this.pass.pass
       })
@@ -149,6 +158,7 @@ export default {
     updateRecord: function () {
       var ipcPayload = new IPCPayload(passRecordEdit, {
         id: me.id,
+        item: 'Category',
         name: 'aaa',
         pass: 'ddd'
       })
@@ -172,6 +182,7 @@ export default {
     },
     handleEdit: function (data) {
       this.editForm.id = data.id
+      this.editForm.item = data.item
       this.editForm.name = data.name
       this.editForm.pass = data.pass
       this.editDialogFormVisible = true
@@ -179,6 +190,7 @@ export default {
     handleEditConfirm: function (data) {
       var ipcPayload = new IPCPayload(passRecordEdit, {
         id: this.editForm.id,
+        item: this.editForm.item,
         name: this.editForm.name,
         pass: this.editForm.pass
       })
